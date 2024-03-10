@@ -9,11 +9,12 @@ import java.io.IOException;
 
 @WebServlet("/registration")
 public class RegistrServlet extends HttpServlet{
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         req.getRequestDispatcher("regpage.jsp").forward(req,res);
     }
-
+    @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         String login = req.getParameter("login");
@@ -25,7 +26,6 @@ public class RegistrServlet extends HttpServlet{
             res.getWriter().println("Все поля должны быть заполненны.");
             return;
         }
-
 
         if(AccountService.getUserByLogin(login) == null){
             UserProfile newUser = new UserProfile(login, email, password);

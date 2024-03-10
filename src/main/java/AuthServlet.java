@@ -8,11 +8,12 @@ import java.io.IOException;
 
 @WebServlet("/")
 public class AuthServlet extends HttpServlet{
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         req.getRequestDispatcher("logpage.jsp").forward(req,res);
     }
-
+    @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         String login = req.getParameter("login");

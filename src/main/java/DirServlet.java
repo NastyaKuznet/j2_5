@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @WebServlet("/files")
 public class DirServlet extends HttpServlet{
-
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         UserProfile user = AccountService.getUserBySession(req.getSession().getId());
@@ -18,6 +18,7 @@ public class DirServlet extends HttpServlet{
             res.sendRedirect(url.substring(0, url.lastIndexOf('/')) + "/");
             return;
         }
+
         String pathReq = req.getParameter("path");
         String pathUser = "D:\\files\\" + user.getLogin();
         String curPath;
@@ -49,6 +50,7 @@ public class DirServlet extends HttpServlet{
         req.getRequestDispatcher("mypage.jsp").forward(req, res);
     }
 
+    @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         String sessionId = req.getSession().getId();
