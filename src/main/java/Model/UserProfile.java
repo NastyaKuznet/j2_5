@@ -1,6 +1,8 @@
 package Model;
 
-public class UserProfile {
+import java.io.Serializable;
+
+public class UserProfile{
     private final String login;
     private final String email;
     private final String password;
@@ -9,12 +11,6 @@ public class UserProfile {
         this.login = login;
         this.email = email;
         this.password = password;
-    }
-
-    public UserProfile(String login){
-        this.login = login;
-        email = login;
-        password = login;
     }
 
     public String getLogin(){

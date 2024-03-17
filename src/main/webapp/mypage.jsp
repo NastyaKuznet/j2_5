@@ -9,7 +9,7 @@
     <title>mypage</title>
 </head>
 <body>
-    <form action="files" method="POST">
+    <form action="files" method="POST" align="right">
         <input type="submit" value="Выйти">
     </form>
     <%=LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))%>
@@ -22,12 +22,11 @@
         }
     %>
     <table>
-        <tr><th><img src="folderUp.png"></th>
+        <tr><th><img src="C:\Users\user\IdeaProjects\j2_3\src\main\webapp\folderUp.png"/></th>
         <th><a href="<%="files?path=" + parPath%>">Вверх</a></th></tr>
     </table>
     <table>
         <tr><th>Файл</th><th>Размер</th><th>Дата</th></tr>
-
         <%
                 File[] directories =  (File[])request.getAttribute("dires");
                 for(File directory : directories){

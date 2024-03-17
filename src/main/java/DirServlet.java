@@ -12,15 +12,16 @@ public class DirServlet extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
-        UserProfile user = AccountService.getUserBySession(req.getSession().getId());
-        if(user == null) {
+        String login = (String)req.getSession().getAttribute("login");
+        String pass = (String)req.getSession().getAttribute("pass");
+        if(AccountService.getUserByLogin(login)==null || !AccountService.getUserByLogin(login).getPassword().equals(pass)) {
             String url = req.getRequestURL().toString();
             res.sendRedirect(url.substring(0, url.lastIndexOf('/')) + "/");
             return;
         }
 
         String pathReq = req.getParameter("path");
-        String pathUser = "D:\\files\\" + user.getLogin();
+        String pathUser = "D:\\files\\" + login;
         String curPath;
         if(pathReq != null){
             if(pathReq.startsWith(pathUser)){
@@ -53,8 +54,8 @@ public class DirServlet extends HttpServlet{
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
-        String sessionId = req.getSession().getId();
-        AccountService.deleteSession(sessionId);
+        req.getSession().removeAttribute("login");
+        req.getSession().removeAttribute("pass");
         String url = req.getRequestURL().toString();
         res.sendRedirect(url.substring(0, url.lastIndexOf('/')) + "/");
     }

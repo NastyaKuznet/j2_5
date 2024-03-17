@@ -1,5 +1,6 @@
 import Model.UserProfile;
 import Service.AccountService;
+import Service.LoadService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ public class AuthServlet extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
+        //LoadService.loadIn();
         req.getRequestDispatcher("logpage.jsp").forward(req,res);
     }
     @Override
@@ -31,7 +33,8 @@ public class AuthServlet extends HttpServlet{
             res.getWriter().println("Неправильный логин или пароль.");
             return;
         }
-        AccountService.addNewSession(req.getSession().getId(), user);
+        req.getSession().setAttribute("login", login);
+        req.getSession().setAttribute("pass", password);
         String url = req.getRequestURL().toString();
         res.sendRedirect(url.substring(0, url.lastIndexOf('/')) + "/files");
     }

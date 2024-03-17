@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileStore;
 
 @WebServlet("/registration")
 public class RegistrServlet extends HttpServlet{
@@ -30,7 +31,8 @@ public class RegistrServlet extends HttpServlet{
         if(AccountService.getUserByLogin(login) == null){
             UserProfile newUser = new UserProfile(login, email, password);
             AccountService.addNewUser(newUser);
-            AccountService.addNewSession(req.getSession().getId(), newUser);
+            req.getSession().setAttribute("login",login);
+            req.getSession().setAttribute("pass",password);
 
             String path = "D:\\files\\" + login;
             File newFolder = new File(path);
@@ -46,7 +48,6 @@ public class RegistrServlet extends HttpServlet{
         else{
             res.setContentType("text/html;charset=utf-8");
             res.getWriter().println("Пользователь с таким логином уже есть.");
-            return;
         }
     }
 }
